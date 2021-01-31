@@ -5,7 +5,7 @@
 # Version 0.0.1
 #
 
-from flask import Flask, render_template
+from flask import Flask, render_template, request
 
 app = Flask(__name__)
 
@@ -13,18 +13,19 @@ app = Flask(__name__)
 def index():
     return render_template('index.html')
 
+@app.route('/', methods=['POST'])
+def execute_request():
+    input = request.form['words']
+    if(input):
+        words = input.split(',')
+        clean_list(words)
+        result = get_occurrences(words)
+        return render_template('index.html', list_of_tuples=result)
+    return render_template('index.html', list_of_tuples="Empty input")
 
-def test_get_occurrences():
-    words = ['apple', 'lemon', 'banana', 'apple', 'apple', 'banana', 'lime', 'apricot']
-    expected_result = [('apple', 3) , ('banana', 2) , ('apricot', 1), ('lemon',1), ('lime', 1)]
-    # words = ['apple', 'fruit', 'abb', 'pomme', 'lemon', 'banana', 'abb', 'apple', 'apple', 'banana', 'abb','lime', 'apricot']
-    # expected_result = [('abb', 3), ('apple', 3) , ('banana', 2) , ('apricot', 1), ('fruit', 1), ('lemon',1), ('lime', 1), ('pomme', 1)]
-    result = get_occurrences(words)
-    print(result)
-    if(result == expected_result):
-        print("test_get_occurrences[OK]")
-    else:
-        print("test_get_occurrences[FAILED]")
+def clean_list(l):
+    for i in range(len(l)):
+        l[i] = l[i].strip().lower()
 
 def get_occurrences(words):
     result = {}
@@ -45,3 +46,6 @@ def get_occurrences(words):
             i = j
         j += 1
     return result
+
+if __name__ == '__main__':
+   app.run()
