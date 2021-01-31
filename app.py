@@ -29,14 +29,13 @@ def clean_list(l):
 
 def get_occurrences(words):
     result = {}
-    nb_words = len(words)
-    for i in range(nb_words):
-        if words[i] in result:
-            result[words[i]] += 1
+    for word in words:
+        if word in result:
+            result[word] += 1
         else:
-            result[words[i]] = 1
+            result[word] = 1
     result = sorted(result.items(), key=lambda item: item[1], reverse=True)
-    # sort subsets of tuples in alphabetical order
+    # sort subsets of tuples (with same values) in alphabetical order
     i = j = 0;
     while j <= len(result):
         if (j == len(result)) or (result[j][1] < result[i][1]):
