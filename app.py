@@ -14,7 +14,7 @@ def index():
     return render_template('index.html')
 
 @app.route('/', methods=['POST'])
-def execute_request():
+def handle_data():
     input = request.form['words']
     if(input):
         words = input.split(',')
