@@ -1,0 +1,17 @@
+
+:root {
+  --margin-std: 1rem;
+  --padding-std: 1rem;
+}
+
+html, body {
+  font-size: 16px;
+}
+
+body {
+  padding: var(--padding-std);
+}
+
+textarea {
+  display: block;
+}

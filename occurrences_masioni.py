@@ -5,6 +5,14 @@
 # Version 0.0.1
 #
 
+from flask import Flask, render_template
+
+app = Flask(__name__)
+
+@app.route('/')
+def index():
+    return render_template('index.html')
+
 
 def test_get_occurrences():
     words = ['apple', 'lemon', 'banana', 'apple', 'apple', 'banana', 'lime', 'apricot']
@@ -37,6 +45,3 @@ def get_occurrences(words):
             i = j
         j += 1
     return result
-
-if __name__ == "__main__":
-    test_get_occurrences()
